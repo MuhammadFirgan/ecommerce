@@ -1,12 +1,10 @@
+
 'use client'
 
 import { useEffect, useState } from "react"
 
-interface urlProps {
-    url: string
-}
 
-const useFetch = ({ url } : urlProps) => {
+const useFetch = ({ url } : { url: string }) => {
     const [ data, setData ] = useState(null)
     const [ loading, setLoading ] = useState(true)
 
