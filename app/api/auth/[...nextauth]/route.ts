@@ -1,8 +1,10 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import FacebookProvider from "next-auth/providers/facebook"
+import FacebookProvider from "next-auth/providers/facebook";
+import { NextRequest, NextResponse } from 'next/server';
 
-export const authOption = {
+// Pastikan untuk memberikan nama yang benar yaitu authOptions
+export const authOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -10,12 +12,18 @@ export const authOption = {
         }),
         FacebookProvider({
             clientId: process.env.FACEBOOK_CLIENT_ID!,
-            clientSecret: process.env.FACEBOOK_CLIENT_SECRET!
-        })
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
+        }),
     ],
-    secret: process.env.NEXTAUTH_SECRET
-}
+    secret: process.env.NEXTAUTH_SECRET,
+};
 
-const handler = NextAuth(authOption)
+const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST }
+export const GET = async (req: NextRequest) => {
+    return handler(req);
+};
+
+export const POST = async (req: NextRequest) => {
+    return handler(req);
+};
