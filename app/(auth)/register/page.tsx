@@ -46,8 +46,10 @@ export default function page() {
               <span className='text-sm text-center block my-5 text-gray-500'>Already Registered? <Link href="/login" className='text-blue-600'>Login Now</Link></span>
 
               <span className='text-xs text-center block my-4 text-gray-500'>Or</span>
-              
-              <SosmedButton />
+              <div className="flex justify-center">
+
+                <SosmedButton />
+              </div>
             </form>
         </div>
       
