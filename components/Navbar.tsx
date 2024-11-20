@@ -44,7 +44,7 @@ export default async  function Navbar() {
               <DropdownMenuTrigger>
                 <Avatar>
                   <AvatarImage src={user.imageUrl} />
-                  <AvatarFallback>{user?.firstName[0]} {user?.lastName[0]}</AvatarFallback>
+                  <AvatarFallback>{user.firstName?.[0] ?? ""} {user.lastName?.[0] ?? ""}</AvatarFallback>
                 </Avatar> 
               </DropdownMenuTrigger>
               <DropdownMenuContent>
