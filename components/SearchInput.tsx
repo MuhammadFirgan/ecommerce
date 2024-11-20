@@ -5,7 +5,7 @@ import { Input } from './ui/input'
 import { useRouter } from 'next/navigation'
 
 export default function SearchInput() {
-    const inputRef = useRef<HTMLInputElement | null>()
+    const inputRef = useRef<HTMLInputElement | null>(null)
     const router = useRouter()
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
