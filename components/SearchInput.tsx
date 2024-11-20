@@ -5,12 +5,12 @@ import { Input } from './ui/input'
 import { useRouter } from 'next/navigation'
 
 export default function SearchInput() {
-    const inputRef = useRef()
+    const inputRef = useRef<HTMLInputElement | null>()
     const router = useRouter()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        router.push(`/search/${inputRef.current.value}`)
+        router.push(`/search/${inputRef.current?.value}`)
     }
 
 
