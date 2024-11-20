@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { poppins } from "@/constans";
+import {
+  ClerkProvider,
+  
+} from '@clerk/nextjs'
 
 export const metadata: Metadata = {
   title: "Firshop",
@@ -13,10 +17,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.className}`}>
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${poppins.className}`}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

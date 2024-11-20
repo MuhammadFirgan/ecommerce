@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BiCart } from "react-icons/bi";
 
 import MobileNav from "./MobileNav";
-import { auth } from "@/lib/auth";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
@@ -15,14 +15,16 @@ import {
 } from "@/components/ui/dropdown-menu"
 import SearchInput from "./SearchInput";
 import MobileFilter from "./MobileFilter";
+import { currentUser } from "@clerk/nextjs/server";
+import { SignOutButton } from '@clerk/nextjs'
 
 
 
-export default async function Navbar() {
+export default async  function Navbar() {
 
-  const user = await auth()
-
+  const user = await currentUser()
   
+
   return (
     <nav className="bg-transparent p-4 lg:w-[calc(100% - 256px)]">
       <div className="flex justify-between items-center gap-5 px-7 md:container md:mx-auto">
@@ -37,41 +39,37 @@ export default async function Navbar() {
               <MobileFilter />
             </div>
             
-          {user ? (
-            <>
-              <Link href="/" className="mr-4">
-                <BiCart className="text-2xl" />
-              </Link>
+            {user ? (
               <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <Avatar>
-                    <AvatarImage src={user.image} />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/api/auth/signout">Logout</Link>
-                  </DropdownMenuItem>
-                 
-                </DropdownMenuContent>
-              </DropdownMenu>
-
+              <DropdownMenuTrigger>
+                <Avatar>
+                  <AvatarImage src={user.imageUrl} />
+                  <AvatarFallback>{user?.firstName[0]} {user?.lastName[0]}</AvatarFallback>
+                </Avatar> 
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>Welcome, {user?.firstName}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <SignOutButton />
+                </DropdownMenuItem>
+                
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
               
-
-            </>
-        ) : (
-            <>
-            <Link href="/login">
-                <span className="text-stone-800 hover:text-stone-600 px-4 hidden border-r border-stone-300 md:block">Login</span>
-              </Link>
-              <Link href="/register">
-                <span className="text-stone-800 hover:text-stone-600 px-4 hidden md:block">Register</span>
-              </Link>
-            </>
-          )}
+            ) : (
+              
+              <div>
+                <Link href="/sign-in">
+                  <span className="text-stone-800 hover:text-stone-600 px-4 border-r border-stone-300 ">Login</span>
+                </Link>
+                <Link href="/sign-up">
+                  <span className="text-stone-800 hover:text-stone-600 px-4 ">Register</span>
+                </Link>
+              </div>
+            )}
             
           </div>
         </div>

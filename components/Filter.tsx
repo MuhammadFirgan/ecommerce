@@ -1,35 +1,14 @@
 'use client'
-import useFetch from '@/hooks/usefetch';
+
 import { Checkbox } from './ui/checkbox';
 import { Slider } from './ui/slider';
 
 
 export default function Filter() {
-    const { data: categories, loading } = useFetch({ url: 'https://fakestoreapi.com/products/categories' });
     
-
     return (
         <div>
-            {loading ? (
-                <div className="w-10 h-4 bg-gray-200"></div>
-            ) : (
-                <>
-                    <h1 className="font-semibold my-6">Categories</h1>
-                    <div className="flex flex-wrap gap-3 lg:gap-5 lg:flex-col">
-                        {categories.map((category, i) => (
-                            <div className="flex items-center space-x-2" key={i}>
-                                <Checkbox id="terms" />
-                                <label
-                                    htmlFor="terms"
-                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
-                                    {category}
-                                </label>
-                            </div>
-                        ))}
-                    </div>
-                </>
-            )}
+            
             <div className="my-8">
                 <div className="flex gap-4 my-6 lg:flex-col">
                     <h1 className="font-semibold">Sort By</h1>

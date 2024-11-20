@@ -22,10 +22,10 @@ export default function MobileNav() {
                 <h1 className={`text-4xl ${bebas_neue.className}`}>FirShop</h1>
             </Link>
             
-            <Link href="/login">
+            <Link href="/sign-in">
               <span className="text-stone-800 hover:text-stone-600 px-4 border-r border-stone-300 ">Login</span>
             </Link>
-            <Link href="/register">
+            <Link href="/sign-up">
               <span className="text-stone-800 hover:text-stone-600 px-4 ">Register</span>
             </Link>
         </SheetContent>

@@ -1,5 +1,4 @@
-'use client'
-import useFetch from '@/hooks/usefetch'
+
 import Link from 'next/link'
 import Filter from './Filter'
 

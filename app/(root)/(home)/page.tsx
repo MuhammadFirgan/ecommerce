@@ -4,13 +4,12 @@ import Card from '@/components/Card';
 import Features from '@/components/Features';
 import SkeletonCard from '@/components/SkeletonCard';
 import { bebas_neue } from '@/constans';
-import useFetch from '@/hooks/usefetch';
+
 import Image from 'next/image';
 import { BiHeadphone, BiMoneyWithdraw, BiSolidWallet } from "react-icons/bi";
 export default function Home() {
 
-  const { data: products, loading } = useFetch({ url: 'https://fakestoreapi.com/products?limit=6' });
-
+ 
   return (
     <>
       
@@ -25,22 +24,7 @@ export default function Home() {
       </div>
       <div className='my-32'>
         <h1 className={`${bebas_neue.className} text-6xl text-center`}>Our Products</h1>
-        {loading ? (
-          <SkeletonCard />
-        ) : (
-        <div className='flex flex-wrap  gap-4 justify-center'>
-          {products.map(product => (
-            <Card 
-              key={product.id}
-              id={product.id}
-              title={product.title}
-              image={product.image}
-              price={product.price}
-            />
-            
-          ))}
-        </div>
-        )}
+        
       </div>
       <div className="flex flex-wrap justify-between">
         <Features 
