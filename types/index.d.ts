@@ -1,9 +1,9 @@
 export type createUserParams = {
-    clerkId: String
-    email: String
-    firstName: String 
-    lastName: String 
-    photo: String
+    clerkId: string
+    email: string
+    firstName: string 
+    lastName: string 
+    photo: string
 }
 
 export type CreateShopParams = {
