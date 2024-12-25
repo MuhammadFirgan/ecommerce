@@ -28,7 +28,7 @@ export default function Checkout({ id, category, title, description, price } : C
                 <input type="number" id="quantity" min="1" max="100" className='max-w-20 px-4 py-1 border rounded my-2'/>
             </div>
             <div className="flex items-center gap-4">
-                <Button size="lg" variant="primary">
+                <Button size="lg" variant="default">
                 <BiCart className="h-4 w-4 mr-2" />
                 Add to Cart
                 </Button>
