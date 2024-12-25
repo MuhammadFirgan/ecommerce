@@ -1,3 +1,4 @@
+'use client'
 import { bebas_neue } from "@/constans";
 import Link from "next/link";
 import { BiCart } from "react-icons/bi";
@@ -16,14 +17,14 @@ import {
 import SearchInput from "./SearchInput";
 import MobileFilter from "./MobileFilter";
 import { currentUser } from "@clerk/nextjs/server";
-import { SignOutButton } from '@clerk/nextjs'
+import { SignOutButton, useUser } from '@clerk/nextjs'
 
 
 
-export default async  function Navbar() {
+export default  function Navbar() {
 
-  const user = await currentUser()
-  
+  const { isSignedIn, user } = useUser()
+
 
   return (
     <nav className="bg-transparent p-4 lg:w-[calc(100% - 256px)]">
@@ -50,7 +51,12 @@ export default async  function Navbar() {
               <DropdownMenuContent>
                 <DropdownMenuLabel>Welcome, {user?.firstName}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={`/profile`}>My Order</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={`/myshop/create`}>Create Shop</Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem>
                   <SignOutButton />
                 </DropdownMenuItem>

@@ -10,7 +10,6 @@ export default async function createUser(user: createUserParams) {
     await dbConnect()
 
     const newUser = await User.create(user)
-    console.log(newUser)
 
     return JSON.parse(JSON.stringify(newUser))
 

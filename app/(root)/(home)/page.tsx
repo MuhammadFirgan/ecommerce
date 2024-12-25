@@ -12,6 +12,7 @@ export default function Home() {
  
   return (
     <>
+    
       
       <div className='flex flex-col justify-center items-center bg-blue-200 rounded-2xl overflow-hidden sm:flex-row'>
         <h1 className={`px-10 pt-10 text-xl sm:max-w-xl sm:pt-0 lg:text-6xl ${bebas_neue.className}`}>Discover, Shop, and Experience Your Style Where Fashion Meets Convenience</h1>

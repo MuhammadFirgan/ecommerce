@@ -14,7 +14,8 @@ interface IReview {
   
  
   export interface IProduct {
-    _id?: String; 
+    _id: String;
+    shopId: { _id: string, name: string }
     name: string;
     price: number;
     description: string;
@@ -24,6 +25,7 @@ interface IReview {
   }
 
 const ProductSchema = new Schema({
+    shopId: { type: Schema.Types.ObjectId, ref: 'Shop' },
     name: { type: String, required: true },
     price: { type: String, required: true, min: 0 },
     description: { type: String, required: true },

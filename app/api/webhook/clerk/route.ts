@@ -1,8 +1,9 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
-import { clerkClient, WebhookEvent } from '@clerk/nextjs/server'
+import { WebhookEvent } from '@clerk/nextjs/server'
+import { clerkClient } from '@clerk/express';
 import createUser from '@/lib/actions/user.action'
-import { NextResponse } from 'next/server'
+import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   const SIGNING_SECRET = process.env.SIGNING_SECRET
@@ -15,10 +16,11 @@ export async function POST(req: Request) {
   const wh = new Webhook(SIGNING_SECRET)
 
   // Get headers
-  const headerPayload = headers()
+  const headerPayload = await headers()
   const svix_id = headerPayload.get('svix-id')
   const svix_timestamp = headerPayload.get('svix-timestamp')
   const svix_signature = headerPayload.get('svix-signature')
+
 
   // If there are no headers, error out
   if (!svix_id || !svix_timestamp || !svix_signature) {
@@ -47,29 +49,24 @@ export async function POST(req: Request) {
     })
   }
 
+
   const { id } = evt.data
-
   const eventType = evt.type
-
-  console.log(evt.data)
-
-  if (eventType === 'user.created') {
-    const { id, email_addresses, image_url, first_name, last_name } = evt.data
+  if(eventType === 'user.created') {
+    const { id, email_addresses, image_url, first_name, last_name } = evt.data;
 
     const user = {
       clerkId: id,
       email: email_addresses[0].email_address,
-      firstName: first_name,
+      firstName: first_name!,
       lastName: last_name,
-      photo: image_url
+      photo: image_url,
     }
 
-    const newUser = await createUser(user)
-
+    const newUser = await createUser(user);
 
     if(newUser) {
-      const client = await clerkClient()
-      await client.users.updateUserMetadata(id, {
+      await clerkClient.users.updateUserMetadata(id, {
         publicMetadata: {
           userId: newUser._id
         }
@@ -78,14 +75,4 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ message: 'OK', user: newUser })
   }
-
-  if (eventType === 'user.updated') {
-    
-  }
-
-  if (eventType === 'user.deleted') {
-    
-  }
-
-  return new Response('Webhook received', { status: 200 })
 }
